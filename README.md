@@ -1,3 +1,3 @@
 # TODO
 
-- [] CRUD entries
+- [] RUD entries
