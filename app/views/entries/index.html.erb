@@ -1,0 +1,7 @@
+<% if @entries.present? %>
+  <% @entries.each do |entry| %>
+    <h2>
+      <%= link_to entry.title, user_entry_path(current_user.id, entry.id) %>
+    </h2>
+  <% end %>
+<% end %>
