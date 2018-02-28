@@ -1,3 +1,7 @@
+<h1>Diary</h1>
+
+<%= link_to 'New Entry', new_user_entry_path(current_user.id) %>
+
 <% if @entries.present? %>
   <% @entries.each do |entry| %>
     <h2>
