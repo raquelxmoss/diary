@@ -5,4 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :entries
+
+  has_many :activities
+  has_many :blocks
 end
