@@ -2,10 +2,7 @@
 
 <%= link_to 'New Entry', new_user_entry_path(current_user.id) %>
 
-<% if @entries.present? %>
-  <% @entries.each do |entry| %>
-    <h2>
-      <%= link_to entry.title, user_entry_path(current_user.id, entry.id) %>
-    </h2>
-  <% end %>
+<%= content_tag :div,
+  id: "data",
+  entries: @entries.to_json do %>
 <% end %>
