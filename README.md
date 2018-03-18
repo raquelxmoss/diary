@@ -1,3 +1,4 @@
 # TODO
 
-- [] UD entries
+- [] D entries
+- Add time suggester/stacker functionalities

@@ -13,6 +13,11 @@ class EntriesController < ActionController::Base
     @entry = Entry.new
   end
 
+  def edit
+    @entry = Entry.find(params[:id])
+    render :new, entry: @entry
+  end
+
   def create
     entry = current_user.entries.create(entry_params)
     redirect_to action: :show, id: entry.id
@@ -20,8 +25,12 @@ class EntriesController < ActionController::Base
 
   def update
     entry = Entry.find(params[:id])
-    entry.update(entry_params)
-    redirect_to action: :show, id: params[:id]
+    if entry.update(entry_params)
+      redirect_to action: :show, id: params[:id]
+    else
+      flash[:alert] = entry.errors.messages
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def destroy

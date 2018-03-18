@@ -18,13 +18,11 @@ ActiveRecord::Schema.define(version: 20180228061025) do
   enable_extension "pgcrypto"
 
   create_table "activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id"
-    t.uuid "block_id"
+    t.bigint "user_id"
     t.string "name"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["block_id"], name: "index_activities_on_block_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
@@ -36,7 +34,7 @@ ActiveRecord::Schema.define(version: 20180228061025) do
   end
 
   create_table "blocks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id"
+    t.bigint "user_id"
     t.integer "duration"
     t.datetime "start_at"
     t.datetime "end_at"
@@ -47,7 +45,7 @@ ActiveRecord::Schema.define(version: 20180228061025) do
   end
 
   create_table "entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "user_id"
+    t.uuid "user_id"
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
@@ -55,7 +53,7 @@ ActiveRecord::Schema.define(version: 20180228061025) do
     t.index ["user_id"], name: "index_entries_on_user_id"
   end
 
-  create_table "users", id: :uuid, default: "0d404248-ee75-433d-94aa-18b72d9c4ce9", force: :cascade do |t|
+  create_table "users", id: :uuid, default: "acd9560a-dc5a-419f-a02b-69e28ec41bc1", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -72,7 +70,5 @@ ActiveRecord::Schema.define(version: 20180228061025) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "activities", "blocks"
-  add_foreign_key "activities", "users"
-  add_foreign_key "blocks", "users"
+  add_foreign_key "entries", "users"
 end
